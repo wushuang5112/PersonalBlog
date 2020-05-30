@@ -1,0 +1,7 @@
+{
+    "comment": "请填写以下配置信息，保存后关闭此页。",
+    "host": "106.13.223.117",
+    "port": 22,
+    "username": "root",
+    "privateKeyFile": "C:/Users/xsx90/.ssh/id_rsa"
+}
