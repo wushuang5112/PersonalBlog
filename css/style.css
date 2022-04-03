@@ -38,8 +38,11 @@ header {
 
 .container .section-block img {
     width: 480px;
-    height: 480px;
+    height: 270px;
     border-radius: 8px;
+    object-fit: scale-down;
+    object-position: bottom;
+    background-color: rgb(252, 238, 238);
     box-shadow: 0 0 5px 1px #999;
 }
 
