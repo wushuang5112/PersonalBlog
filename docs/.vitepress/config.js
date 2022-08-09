@@ -238,7 +238,7 @@ export default {
         // 页脚
         footer: {
             message: 'Released under the MIT License.',
-            copyright: 'MIT Licensed | Copyright © 2022-present'
+            copyright: 'Copyright ©2019-present 粤ICP备18124974号'
         }
     },
 
