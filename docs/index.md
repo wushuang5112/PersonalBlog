@@ -11,10 +11,10 @@ hero:
       link: /01FE/JavaScript
     - theme: alt
       text: GitHub
-      link: https://github.com/devil159468
+      link: https://github.com/
     - theme: alt
       text: Gitee
-      link: https://gitee.com/Elliot-Devil
+      link: https://gitee.com/
     - theme: brand
       text: 更新日志
       link: /Log
@@ -32,6 +32,7 @@ features:
 ---
 
 <!-- https://gitee.com/Elliot-Devil/vitepress/tree/master/docs/.vitepress -->
+<!-- https://vuepress-theme-hope.github.io/v2/zh/guide/layout/footer.html#copyright -->
 
 <style>
 :root {

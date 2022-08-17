@@ -238,7 +238,7 @@ export default {
         // 页脚
         footer: {
             message: 'Released under the MIT License.',
-            copyright: 'Copyright ©2019-present 粤ICP备18124974号'
+            copyright: '<a href="https://beian.miit.gov.cn/">Copyright ©2019-present 粤ICP备18124974号</a>'
         }
     },
 
