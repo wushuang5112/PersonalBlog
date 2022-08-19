@@ -84,6 +84,7 @@ export default {
                         // text: '架构',
                         items: [
                             { text: 'Docker', link: '/03Server/Docker' },
+                            { text: 'GitLab', link: '/03Server/GitLab.md' },
                             { text: 'CI & CD', link: '/03Server/CICD' },
                             { text: '架构', link: '/03Server/Architecture.md' },
                         ]
@@ -132,13 +133,13 @@ export default {
                 ]
             },
 
-            { text: 'Github', link: 'https://github.com/devil159468' },
-            { text: 'Gitee', link: 'https://gitee.com/Elliot-Devil' },
+            { text: 'Github', link: 'https://github.com/orgs/algorithm003/dashboard' },
+            { text: 'Gitee', link: 'https://gitee.com/wushuang5112/dashboard/projects' },
         ],
 
         // 社交账号
         // socialLinks: [
-        // { icon: 'github', link: 'https://github.com/devil159468' },
+        // { icon: 'github', link: 'https://github.com/orgs/algorithm003/dashboard' },
         // ],
 
         // 侧边栏配置
@@ -189,6 +190,7 @@ export default {
                     text: '架构',
                     items: [
                         { text: 'Docker', link: '/03Server/Docker' },
+                        { text: 'GitLab', link: '/03Server/GitLab.md' },
                         { text: 'CI & CD', link: '/03Server/CICD' },
                         { text: '架构', link: '/03Server/Architecture.md' },
                     ]

@@ -11,10 +11,10 @@ hero:
       link: /01FE/JavaScript
     - theme: alt
       text: GitHub
-      link: https://github.com/
+      link: https://github.com/orgs/algorithm003/dashboard
     - theme: alt
       text: Gitee
-      link: https://gitee.com/
+      link: https://gitee.com/wushuang5112/dashboard/projects
     - theme: brand
       text: 更新日志
       link: /Log

@@ -9,3 +9,5 @@
   - 增加了备案网站
 - 20220817
   - 增加网站[截图](./public/resources/web_shotcut.png)
+- 20220819
+  - 增加GitLab安装布曙与备份文档
