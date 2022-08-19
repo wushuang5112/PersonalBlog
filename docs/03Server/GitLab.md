@@ -64,6 +64,15 @@ vim /etc/gitlab/gitlab.rb
 gitlab-ctl reconfigure
 ```
 
+### 1.6 修改时区
+```bash
+# 1. 编辑 vim /etc/gitlab/gitlab.rb ⽂件
+vim /etc/gitlab/gitlab.rb
+    gitlab_rails['time_zone'] = 'Beijing'
+# 2. 使用配置重新生效
+gitlab-ctl reconfigure
+```
+
 ## 2. GitLab-Runner安装
 
 ```bash
