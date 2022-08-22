@@ -38,7 +38,8 @@ export default {
                         items: [
                             { text: 'JavaScript', link: '/01FE/JavaScript' },
                             { text: 'TypeScript', link: '/01FE/TypeScript' },
-                            { text: '工程化', link: '/01FE/Engineering' }
+                            { text: '工程化', link: '/01FE/Engineering' },
+                            { text: 'PM2工具', link: '/01FE/pm2/index' },
                         ]
                     },
                     {
@@ -146,15 +147,26 @@ export default {
         sidebar: {
             '/01FE/': [
                 {
-                    // text: 'JavaScript',
+                    text: 'JavaScript',
+                    collapsible: true,
                     items: [
                         { text: 'JavaScript', link: '/01FE/JavaScript', activeMatch: '/01FE/' },
                         { text: 'TypeScript', link: '/01FE/TypeScript' },
                         { text: '工程化', link: '/01FE/Engineering' },
+                        { 
+                            text: 'PM2工具',
+                            collapsible: true,
+                            collapsed: false,
+                            items: [
+                                { text: 'pm2 基础', link: '/01FE/pm2/index' },
+                                { text: 'pm2 管理状态', link: '/01FE/pm2/restart_strategies' },
+                            ]
+                        },
                     ]
                 },
                 {
-                    // text: 'H && C',
+                    text: 'H && C',
+                    collapsible: true,
                     items: [
                         { text: 'HTML', link: '/01FE/HTML' },
                         { text: 'CSS', link: '/01FE/CSS' },
@@ -243,6 +255,4 @@ export default {
             copyright: '<a href="https://beian.miit.gov.cn/">Copyright ©2019-present 粤ICP备18124974号</a>'
         }
     },
-
-
 }

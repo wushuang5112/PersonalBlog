@@ -11,3 +11,5 @@
   - 增加网站[截图](./public/resources/web_shotcut.png)
 - 20220819
   - 增加GitLab安装布曙与备份文档
+- 20220822
+  - 增加PM2工具文章章节
