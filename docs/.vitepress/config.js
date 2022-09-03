@@ -1,4 +1,10 @@
-export default {
+import { defineConfig } from 'vitepress'
+
+const customElements = [
+    'font',
+    'center'
+]
+export default defineConfig({
     // Head及SEO设置
     head: [
         [
@@ -257,4 +263,12 @@ export default {
             copyright: '<a href="https://beian.miit.gov.cn/">Copyright ©2019-present 粤ICP备18124974号</a>'
         }
     },
-}
+
+    vue: {
+        template: {
+            compilerOptions: {
+                isCustomElement: (tag) => customElements.includes(tag)
+            }
+        }
+    }
+})

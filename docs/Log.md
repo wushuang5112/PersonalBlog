@@ -16,3 +16,4 @@
 - 20220903
   - 增加iperf3工具
   - 增加腾讯云DDNS设置
+  - [解决Vitepress编辑markdown文件无法非标准HTML标签](https://github.com/vuejs/vitepress/issues/430)
