@@ -107,6 +107,7 @@ export default {
                         // text: '工具',
                         items: [
                             { text: 'Git', link: '/05Skill/Git.md' },
+                            { text: 'IT工具', link: '/05Skill/Network.md' },
                             // { text: '自有库', link: '/05Skill/PrivateLib.md' },
                             // { text: '思维导图', link: '/05Skill/MindMap.md' },
                         ]
@@ -221,6 +222,7 @@ export default {
                     // text: '工具',
                     items: [
                         { text: 'Git', link: '/05Skill/Git.md' },
+                        { text: 'IT工具', link: '/05Skill/Network.md' },
                         // { text: '自有库', link: '/05Skill/PrivateLib.md' },
                         // { text: '思维导图', link: '/05Skill/MindMap.md' },
                     ]
