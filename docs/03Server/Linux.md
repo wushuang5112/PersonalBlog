@@ -16,3 +16,5 @@ disabled ##服务开机不自启
 static ##服务开机启动项不可被管理
 failed ##系统配置错误
 ```
+
+## 2 [腾讯云DDNS更新](./LinuxConfigure/腾讯云DDNS配置.md)
