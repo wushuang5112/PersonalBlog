@@ -270,5 +270,9 @@ export default defineConfig({
                 isCustomElement: (tag) => customElements.includes(tag)
             }
         }
+    },
+
+    markdown: {
+        lineNumbers: true
     }
 })

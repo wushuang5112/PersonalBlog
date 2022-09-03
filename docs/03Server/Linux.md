@@ -18,3 +18,5 @@ failed ##系统配置错误
 ```
 
 ## 2 [腾讯云DDNS更新](./LinuxConfigure/腾讯云DDNS配置.md)
+
+## 3 [设置系统代理](LinuxConfigure/系统代理配置.md)
