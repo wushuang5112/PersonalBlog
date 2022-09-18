@@ -18,3 +18,5 @@
   - 增加腾讯云DDNS设置
   - [解决Vitepress编辑markdown文件无法非标准HTML标签](https://github.com/vuejs/vitepress/issues/430)
   - PDF下载软件
+- 20220918
+  - Socat工具使用
