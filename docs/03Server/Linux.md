@@ -22,3 +22,7 @@ failed ##系统配置错误
 ## 3 [设置系统代理](LinuxConfigure/系统代理配置.md)
 
 ## 4 [Socat工具使用](LinuxConfigure/Socat工具使用.md)
+
+## 5 prometheus & dashboard
+https://github.com/starsliao/ConsulManager
+https://github.com/eryajf/go-ldap-admin#-%E5%9C%A8%E7%BA%BF%E4%BD%93%E9%AA%8C
