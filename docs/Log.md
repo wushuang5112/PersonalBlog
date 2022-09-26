@@ -20,3 +20,5 @@
   - PDF下载软件
 - 20220918
   - Socat工具使用
+- 20220926
+  - CloudFlare DDNS更新

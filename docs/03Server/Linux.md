@@ -26,3 +26,6 @@ failed ##系统配置错误
 ## 5 prometheus & dashboard
 https://github.com/starsliao/ConsulManager
 https://github.com/eryajf/go-ldap-admin#-%E5%9C%A8%E7%BA%BF%E4%BD%93%E9%AA%8C
+
+
+## 6 [CloudFlare DDNS更新](./LinuxConfigure/resources/cf-v4-ddns.sh)
