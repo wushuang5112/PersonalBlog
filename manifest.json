@@ -1,0 +1,78 @@
+// manifest.json
+{
+    "name": "PJCHENder Extension",
+    "version": "1.0",
+    "description": "PJCHENder tester client tool for recording.",
+    // Extension 要正常運作一定需要的權限
+    "permissions": [
+        "storage",
+        "declarativeContent",
+        "alarms",
+        "notifications",
+        "activeTab", // 取得當前 active tab 的存取權限
+        "tabs", // 新增、修改還重新排序頁籤
+        "http://localhost:3000/*" // 具有符合該網址 tab 的存取權限（可以對它使用 executeScript）
+    ],
+    // 使用者可以自己選擇要不要提供
+    "optional_permissions": [
+        "topSites",
+        "http://www.developer.chrome.com/*"
+    ],
+    "background": {
+        "scripts": [
+            "background.js"
+        ],
+        "persistent": false
+    },
+    // 如果要讓 webpage 可以存取 extension 內的資源
+    "web_accessible_resources": [
+        "images/*"
+    ],
+    // extension 在 toolbar 上的 icon
+    "browser_action": {
+        "default_icon": {
+            "16": "images/logo@16.png",
+            "32": "images/logo@32.png",
+            "48": "images/logo@48.png",
+            "128": "images/logo@128.png"
+        },
+        "default_title": "__MSG_tooltip__", // 搭配 i18n 使用 __MSG_foobar__
+        "default_popup": "popup.html"
+    },
+    // extension 的選項頁
+    "options_page": "options.html",
+    "icons": {
+        "16": "images/logo@16.png",
+        "32": "images/logo@32.png",
+        "48": "images/logo@48.png",
+        "128": "images/logo@128.png"
+    },
+    // 搭配 i18n
+    "default_locale": "en",
+    // 如果有要使用 declarative content script（到特定頁面自動載入 contentScript）
+    "content_scripts": [
+        {
+            "matches": [
+                "http://*.nytimes.com/*"
+            ],
+            "exclude_matches": [
+                "*://*/*business*"
+            ],
+            "include_globs": [
+                "*nytimes.com/???s/*"
+            ],
+            "exclude_globs": [
+                "*science*"
+            ],
+            "run_at": "document_idle", // 決定 JavaScript 注入的時間，預設是 document_idle
+            "css": [
+                "myStyles.css"
+            ],
+            "js": [
+                "contentScript.js"
+            ]
+        }
+    ],
+    "content_security_policy": "default-src 'none'; style-src 'self'; script-src 'self'; connect-src https://maps.googleapis.com; img-src https://maps.googleapis.com",
+    "manifest_version": 2
+}

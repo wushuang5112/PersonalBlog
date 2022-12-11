@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>世界</title>
+    <button>点我</button>
+</head>
+
+<body>
+    <script>
+        // console.log('hello')
+        // https://www.cnblogs.com/joshua317/p/15177663.html
+
+        function sendNotification() {
+            console.log('========================')
+            const n = new Notification("订单待处理", {
+                body: '您有N条订单需要处理, 前往申领办理!http://localhost:9000/#/otc-order-workflow-index',
+                tag: 'test',
+                icon: 'https://pic1.zhuanstatic.com/zhuanzh/50b6ffe4-c7e3-4317-bc59-b2ec4931f325.png',
+                direction: 'rtl',
+                data: {
+                    'abc': 123,
+                    'ddd': 4444
+                },
+                sound: 'https://m3.13400.com/zv/bi_li-xue_heng_tai_34s.mp3',
+                requireInteraction: true,
+                renotify: true,
+                silent: false,
+            })
+            console.log('=========4444444444===============')
+
+            n.onshow = function (data) {
+                console.log('Notification shown', data);
+
+                // setTimeout(n.close.bind(n), 1000);
+            };
+
+            n.onclose = function (data) {
+                console.log('Notification closed', data);
+                // window.open('http://localhost/abc', target='_self')
+            };
+
+        }
+        if (window.Notification.permission == "granted") { // 判断是否有权限
+            sendNotification();
+        } else if (window.Notification.permission != "denied") {
+            window.Notification.requestPermission(function (permission) { // 没有权限发起请求
+                debugger
+                sendNotification();
+            });
+        }
+
+
+    //  async function isUserHasNotificationPermission() {
+    //     console.log(window.Notification.permission)
+    //     if (window.Notification.permission === 'granted') {
+    //         // 判断是否有权限
+    //         return true
+    //     } else if (window.Notification.permission != 'denied') {
+    //         const permission = await window.Notification.requestPermission()
+    //         return permission === 'granted'
+    //     } else {
+    //         return false
+    //     }
+    // }
+
+    isUserHasNotificationPermission().then(result => {
+        console.log('==========: ', result);
+    })
+
+
+            // function _showDataOnPage(data) {
+
+            //         //显示一个桌面通知
+            //         if (window.webkitNotifications) {
+            //             var notification = window.webkitNotifications.createNotification(
+            //                 'images/icon.png',  // icon url - can be relative
+            //                 '通知的title!',  // notification title
+            //                 data  // notification body text
+            //             );
+            //             notification.show();
+            //             // 设置3秒后，将桌面通知dismiss
+            //             setTimeout(function () { notification.cancel(); }, 3000);
+
+            //         } else if (chrome.notifications) {
+            //             var opt = {
+            //                 type: 'basic',
+            //                 title: '通知的title!',
+            //                 message: data,
+            //                 iconUrl: 'images/icon.png',
+            //             }
+            //             chrome.notifications.create('', opt, function (id) {
+            //                 setTimeout(function () {
+            //                     chrome.notifications.clear(id, function () { });
+            //                 }, 3000);
+            //             });
+
+            //         } else {
+            //             alert('亲，你的浏览器不支持啊！');
+            //         }
+
+            //     }
+
+            //     _showDataOnPage()
+
+            //     window.addEventListener('load', function () {
+            //             // 首先，让我们检查我们是否有权限发出通知
+            //             // 如果没有，我们就请求获得权限
+            //             if (window.Notification && Notification.permission !== "granted") {
+            //                 Notification.requestPermission(function (status) {
+            //                     if (Notification.permission !== status) {
+            //                         Notification.permission = status;
+            //                     }
+            //                 });
+            //             }
+
+            //             var button = document.getElementsByTagName('button')[0];
+
+            //             button.addEventListener('click', function () {
+            //                 alert('测试')
+            //                 // 如果用户同意就创建一个通知
+            //                 if (window.Notification && Notification.permission === "granted") {
+            //                     var n = new Notification("Hi!");
+            //                 }
+
+            //                 // 如果用户没有选择是否显示通知
+            //                 // 注：因为在 Chrome 中我们无法确定 permission 属性是否有值，因此
+            //                 // 检查该属性的值是否是 "default" 是不安全的。
+            //                 else if (window.Notification && Notification.permission !== "denied") {
+            //                     Notification.requestPermission(function (status) {
+            //                         if (Notification.permission !== status) {
+            //                             Notification.permission = status;
+            //                         }
+
+            //                         // 如果用户同意了
+            //                         if (status === "granted") {
+            //                             var n = new Notification("Hi!");
+            //                         }
+
+            //                         // 否则，我们可以让步的使用常规模态的 alert
+            //                         else {
+            //                             alert("Hi!");
+            //                         }
+            //                     });
+            //                 }
+
+            //                 // 如果用户拒绝接受通知
+            //                 else {
+            //                     // 我们可以让步的使用常规模态的 alert
+            //                     alert("Hi!");
+            //                 }
+            //             });
+            //         });
+    </script>
+</body>
+
+</html>

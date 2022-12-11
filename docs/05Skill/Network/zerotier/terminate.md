@@ -55,7 +55,10 @@ $ sudo systemctl restart zerotier-one
 ```
 
 ## 使用 Moon
-普通的 Zerotier 成员使用 Moon 有两种方法，第一种方法是使用 zerotier-cli orbit 命令直接添加 Moon 节点ID；第二种方法是在 zerotier-one 程序的根目录创建moons.d文件夹，将 xxx.moon 复制到该文件夹中，我们采用第一种方法：
+普通的 Zerotier 成员使用 Moon 有两种方法:
+第一种方法是使用 zerotier-cli orbit 命令直接添加 Moon 节点ID；
+第二种方法是在 zerotier-one 程序的根目录创建moons.d文件夹，将 xxx.moon 复制到该文件夹中;
+我们采用第一种方法：
 
 ### Linux 系统下使用 Moon
 将命令中的两组 xxxxxxxxxx 都替换成 moon 的节点ID。
@@ -85,6 +88,7 @@ PS C:\Windows\system32> zerotier-cli.bat listpeers
 # 相关链接
 [Zerotier 官网](https://www.zerotier.com/)
 [Creating Your Own Roots (a.k.a. Moons)](https://www.zerotier.com/manual/#4_4)
+[参考资料](https://blog.csdn.net/never_late/article/details/127329225)
 
 
 # ------------------------------------------------------------------------------
@@ -93,4 +97,19 @@ zerotier-cli info
 ```bash
 root@bdefb925d691:/# zerotier-cli info
 200 info 1169545b64 1.8.4 ONLINE
+```
+
+# 查看Zerotier节点状态
+zerotier-cli status
+```bash
+root@HankingRoutes:~# zerotier-cli status
+200 info fda24cc8c2 1.6.5 ONLINE
+```
+
+# 查看节点状态
+zerotier-cli listnetworks
+```bash
+root@HankingRoutes:~# zerotier-cli listnetworks
+200 listnetworks <nwid> <name> <mac> <status> <type> <dev> <ZT assigned ips>
+200 listnetworks 1169545b648296ee 内网穿透 ee:6b:20:28:93:96 OK PRIVATE ztjig5ntmk 10.251.25.34/24
 ```
