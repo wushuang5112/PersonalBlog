@@ -96,6 +96,13 @@ export default defineConfig({
                             { text: '架构', link: '/03Server/Architecture.md' },
                         ]
                     },
+                    {
+                        // text: '网络',
+                        items: [
+                            { text: 'GRE遂道建立', link: '/03Server/Network/GRE/GRE隧道建立(命令行).md' },
+                            { text: 'UDP', link: '/03Server/Network/udp' },
+                        ]
+                    },
                 ]
             },
             {
