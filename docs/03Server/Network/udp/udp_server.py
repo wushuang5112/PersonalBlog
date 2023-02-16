@@ -3,12 +3,17 @@
 import socket
 import sys
 
+host = '127.0.0.1'
 port = 51831
-print(len(sys.argv))
-if len(sys.argv) >= 2:
+if len(sys.argv) == 2:
     port = int(sys.argv[1])
+elif len(sys.argv) == 3:
+    host = sys.argv[1]
+    port = int(sys.argv[2])
+else:
+    print('参数错误, [host port] or [port]')
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-s.bind(("140.82.4.54", port))
+s.bind((host, port))
 print("UDP bound on port {0}...".format(port))
 
 while True:

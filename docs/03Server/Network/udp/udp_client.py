@@ -3,11 +3,17 @@
 import socket
 import sys
 
+host = '127.0.0.1'
 port = 51831
-if len(sys.argv) >= 2:
+if len(sys.argv) == 2:
     port = int(sys.argv[1])
+elif len(sys.argv) == 3:
+    host = sys.argv[1]
+    port = int(sys.argv[2])
+else:
+    print('参数错误, [host port]')
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-addr = ("140.82.4.54", port)
+addr = (host, port)
 
 while True:
     data = input("Please input your name: ")
