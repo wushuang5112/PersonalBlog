@@ -45,9 +45,26 @@ sudo EXTERNAL_URL="http://gitlab.wushuang5112.wang" apt-get install gitlab-ce
 cat /etc/gitlab/initial_root_password
 ```
 
+### 1.5 时区修改
+#### 系统时间修改
+```bash
+sudo timedatectl list-timezones # 查看时区
+sudo timedatectl set-timezone Asia/Hong_Kong # 设置时区
+timedatectl # 运行timedatectl命令去验证修改
+```
+
+#### Gitlab时区修改
+```bash
+# 1. 编辑 vim /etc/gitlab/gitlab.rb ⽂件
+vim /etc/gitlab/gitlab.rb
+    gitlab_rails['time_zone'] = 'Asia/Hong_Kong'
+# 2. 使用配置重新生效
+gitlab-ctl reconfigure
+```
+
 <!-- cp /etc/gitlab/gitlab.rb{,.original} -->
 
-### 1.5 绑定SSL证书
+### 1.6 绑定SSL证书
 
 ```bash
 # 1. 编辑 vim /etc/gitlab/gitlab.rb ⽂件
@@ -63,7 +80,7 @@ vim /etc/gitlab/gitlab.rb
 gitlab-ctl reconfigure
 ```
 
-### 1.6 绑定发送邮件邮箱
+### 1.7 绑定发送邮件邮箱
 
 > 先输入systemctl status postfix确定postfix是启动状态，看到 Active: active (running|exited)说明，已经启动了
 
@@ -103,15 +120,6 @@ gitlab-ctl reconfigure
 # 3. 使用测试邮件发送
 gitlab-rails console
 Notify.test_email('你的邮箱', '邮箱标题', 'Hello World').deliver_now
-```
-
-### 1.7 修改时区
-```bash
-# 1. 编辑 vim /etc/gitlab/gitlab.rb ⽂件
-vim /etc/gitlab/gitlab.rb
-    gitlab_rails['time_zone'] = 'Beijing'
-# 2. 使用配置重新生效
-gitlab-ctl reconfigure
 ```
 
 ## 2. GitLab-Runner安装
@@ -188,4 +196,46 @@ gitlab-rake gitlab:backup:create
 sudo gitlab-ctl status
 sudo gitlab-ctl start
 sudo gitlab-ctl stop
+sudo gitlab-ctl restart # 重启所有 gitlab 组件；
+sudo gitlab-ctl reconfigure # 启动服务；
+sudo vim /etc/gitlab/gitlab.rb # 修改默认的配置文件；
+gitlab-rake gitlab:check SANITIZE=true --trace # 检查gitlab；
+sudo gitlab-ctl tail # 查看日志；
+```
+
+# ==================================================
+## 升级版本
+```bash
+sudo dpkg -i gitlab-ce_14.5.0-ce.0_amd64.deb
+sudo gitlab-ctl reconfigure
+sudo gitlab-ctl start
+```
+
+## 降低版本
+1、停止gitlab服务
+```bash
+sudo gitlab-ctl stop
+```
+
+2、卸载当前版本的gitlab
+```bash
+sudo gitlab-ctl uninstall
+sudo apt remove gitlab-ce
+```
+
+## 修改root密码
+依次执行如下脚本
+```text
+cd /opt/gitlab/bin
+sudo gitlab-rails console -e  production
+user = User.where(id: 1).first
+user.password = 'secret_pass'
+user.password_confirmation = 'secret_pass'
+user.save!
+exit 
+```
+
+## 实时日志查看
+```bash
+sudo gitlab-ctl tail
 ```
