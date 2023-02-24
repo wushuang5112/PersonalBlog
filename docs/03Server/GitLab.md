@@ -165,27 +165,65 @@ gitlab-rake gitlab:backup:create
 0 2 * * * /opt/gitlab/bin/gitlab-rake gitlab:backup:create
 ```
 
-### 3.4 GitLab迁移
+### 3.4 GitLab升级
 
 ```text
 迁移的整体思路是：
-1、在新服务器上安装相同版本的gitlab
-2、将备份生成的备份文件发送到新服务器的相同目录下
-在老服务器上将备份文件发送至新服务器的相应目录下
+1、备份Gitlab数据文件(/var/opt/gitlab/backups/)及配置文件(/etc/gitlab/gitlab.rb和/etc/gitlab/gitlab-secrets.json)
+2、在新服务器上查看Gitlab版本号，确定升级路径
+    [官网包下载地址](https://packages.gitlab.com/gitlab/gitlab-ce​)
+    [升级向导文档](https://docs.gitlab.com/ee/update/index.html#upgrade-paths)
+    [升级向导版本具体路径](https://gitlab-com.gitlab.io/support/toolbox/upgrade-path/?current=15.2.2&auto=true&edition=ce)
+    [升级Gitlab官方文档目录](https://docs.gitlab.com/ee/update/plan_your_upgrade.html)
+3、某些新版本可能需要更多的依赖包而之前的旧版本并没有安装
+4、重启服务
+```
+
+```bash
+[root@gitlab ~]# gitlab-rake gitlab:backup:create      # 备份Gitlab仓库文件
+[root@gitlab ~]# gitlab-rake gitlab:env:info      #查看Gitlab版本号
+[root@gitlab ~]# gitlab-ctl stop unicorn      #停止相关数据连接服务
+[root@gitlab ~]# gitlab-ctl stop sidekiq
+[root@gitlab ~]# gitlab-ctl stop nginx
+[root@gitlab ~]# apt-get install -y gitlab-ce=15.4.6-ce.0
+[root@gitlab ~]# gitlab-ctl restart
+```
+
+#### 3.4.1 安装和初始化均无正常，但在访问域名时报500错误
+```text
+解决方法：
+1、输入以下指令查看数据升级状态
+sudo gitlab-rake db:migrate:status
+果然发现有一些显示为Down，显示为Up即表示正常同。
+2、再执行数据库关系升级
+sudo gitlab-rake db:migrate
+#迁移完db后往往会有这个问题，需要执行此步骤。
+3、清除缓存
+gitlab-rake cache:clear
+4、再重复重建重启命令，问题解决
+gitlab-ctl reconfigure
+gitlab-ctl restart
+```
+
+### 3.5 GitLab恢复
+```text
+迁移的整体思路是：
+1、将备份生成的备份文件发送到新服务器的相同目录下(/var/opt/gitlab/backups/)
+    在老服务器上将备份文件发送至新服务器的相应目录下
+2、停止相关服务后使用gitlab-rake gitlab:backup:restore恢复数据库文件
+3、复制Gitlab配置文件到/etc/gitlab目录
+4、执行重新配置命令后重启服务
 ```
 
 ```bash
 [root@gitlab ~]# scp /var/opt/gitlab/backups/1530156812_2018_06_28_10.8.4_gitlab_backup.tar root@10.0.0.6:/var/opt/gitlab/backups/
-```
-
-### 3.5 GitLab恢复
-
-```bash
-[root@gitlab ~]# gitlab-ctl stop unicorn		#停止相关数据连接服务
+[root@gitlab ~]# gitlab-ctl stop unicorn      #停止相关数据连接服务
 [root@gitlab ~]# gitlab-ctl stop sidekiq
+[root@gitlab ~]# gitlab-ctl stop nginx
 [root@gitlab-new ~]# chmod 777 /var/opt/gitlab/backups/1530156812_2018_06_28_10.8.4_gitlab_backup.tar
 #修改权限，如果是从本服务器恢复可以不修改
 [root@gitlab ~]# gitlab-rake gitlab:backup:restore BACKUP=1530156812_2018_06_28_10.8.4	
+[root@gitlab ~]# gitlab-ctl reconfigure #根据配置文件重新初始化
 #从1530156812_2018_06_28_10.8.4编号备份中恢复
 [root@gitlab ~]# gitlab-ctl start #启动gitlab
 ```
@@ -238,4 +276,9 @@ exit
 ## 实时日志查看
 ```bash
 sudo gitlab-ctl tail
+```
+
+```text
+参考链接:
+https://blog.51cto.com/droptoking/5058134
 ```
