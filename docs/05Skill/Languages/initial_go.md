@@ -2,7 +2,7 @@
 
 ## go目录结构
 
-```text
+```txt
 根路径下：
 src:源文件
 pkg:包文件
@@ -16,7 +16,7 @@ go get
 
 go build
 
-```text
+```txt
 go build
 参数有：
 -ldflags：用于编译时设置变量值
@@ -33,7 +33,7 @@ GOARCH:指定编译生成可执行文件的运行系统架构，常用的有：a
 -w:去掉DWARF调试信息
 ```
 
-```text
+```txt
 # 示例
 GOOS=darwin GOARCH=amd64 go build  -o "targte_exe" -ldflags "-w -s -X main.Env=test -X main.Version=1.0"
 ```

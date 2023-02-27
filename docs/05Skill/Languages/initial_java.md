@@ -2,7 +2,7 @@
 
 ## Maven操作
 
-```text
+```txt
 // 删除target目录下的内容
 mvn clean
 // 编译main目录的源代码

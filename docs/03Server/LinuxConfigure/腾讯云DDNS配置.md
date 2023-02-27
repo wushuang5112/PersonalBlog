@@ -1,6 +1,6 @@
 # 通过定时任务设置腾讯云DDNS
 
-```text
+```txt
 1. 参数获取(API密钥/Token/域名ID/子域名ID)
 2. 定时任务设置DDNS
 3. DNSPod查看更新结果

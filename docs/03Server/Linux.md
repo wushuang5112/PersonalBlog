@@ -2,7 +2,7 @@
 
 ## 1 服务状态查看命令(systemctl status server)
 
-```text
+```txt
 systemctl 管理的 active(exited) 状态说明
 使用systemctl 查看服务的状态，返回的状态有以下几种：
 

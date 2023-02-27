@@ -18,18 +18,35 @@
 
 stages:          # List of stages for jobs, and their order of execution
   - build
-  # - test
   - deploy
 
-build-job:       # This job runs in the build stage, which runs first.
+build:       # This job runs in the build stage, which runs first.
   stage: build
+  before_script:
+    - cd ~
+    - curl -sL https://deb.nodesource.com/setup_14.x | sudo bash -
+    - sudo apt update
+    - sudo apt install nodejs
+    - npm i yarn -g
+    - cd -
   script:
     - echo "Compiling the code..."
-    - npm install express --save
+    - pwd
+    - whoami
+    - git checkout vitePress
+    - git pull origin vitePress
+    - git reset --hard
+    - node -v
+    - which node
+    - yarn
+    - yarn docs:build
+    - echo "Compile complete."
 
-deploy-job:      # This job runs in the deploy stage.
+
+deploy:      # This job runs in the deploy stage.
   stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
+  environment: production
   script:
     - echo "Deploying application..."
-    - rsync -auzv --delete * www@13.229.82.92:/opt/netkiller.cn/www.netkiller.cn
-    - ssh www@13.229.82.92 "pm2 --update-env restart /opt/netkiller.cn/www.netkiller.cn/app.js
+    - pm2 restart 1
+    - echo "Application successfully deployed."

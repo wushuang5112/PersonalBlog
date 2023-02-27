@@ -159,7 +159,7 @@ module.exports = {
 ```
 当应用程序意外崩溃并激活选项 --exp-backoff-restart-delay 时，我们将能够看到新的应用程序状态 waiting restart。  
 通过运行 pm2 logs，我们还将看到重新启动延迟增加：  
-```text
+```txt
 PM2      | App [throw:0] will restart in 100ms
 PM2      | App [throw:0] exited with code [1] via signal [SIGINT]
 PM2      | App [throw:0] will restart in 150ms

@@ -84,7 +84,7 @@ gitlab-ctl reconfigure
 
 > 先输入systemctl status postfix确定postfix是启动状态，看到 Active: active (running|exited)说明，已经启动了
 
-```text
+```txt
 ubuntu@VM-12-15-ubuntu:/etc/gitlab$ systemctl status postfix
 ● postfix.service - Postfix Mail Transport Agent
      Loaded: loaded (/lib/systemd/system/postfix.service; enabled; vendor preset: enabled)
@@ -136,7 +136,7 @@ systemctl status gitlab-runner
 
 ## 3. 备份与恢复
 
-```text
+```txt
 /etc/gitlab/gitlab.rb 配置文件须备份
 /var/opt/gitlab/nginx/conf nginx配置文件
 /etc/postfix/main.cfpostfix 邮件配置备份
@@ -160,14 +160,14 @@ gitlab-rake gitlab:backup:create
 
 创建定时任务
 
-```text
+```txt
 [root@gitlab ~]# crontab -e
 0 2 * * * /opt/gitlab/bin/gitlab-rake gitlab:backup:create
 ```
 
 ### 3.4 GitLab升级
 
-```text
+```txt
 迁移的整体思路是：
 1、备份Gitlab数据文件(/var/opt/gitlab/backups/)及配置文件(/etc/gitlab/gitlab.rb和/etc/gitlab/gitlab-secrets.json)
 2、在新服务器上查看Gitlab版本号，确定升级路径
@@ -190,7 +190,7 @@ gitlab-rake gitlab:backup:create
 ```
 
 #### 3.4.1 安装和初始化均无正常，但在访问域名时报500错误
-```text
+```txt
 解决方法：
 1、输入以下指令查看数据升级状态
 sudo gitlab-rake db:migrate:status
@@ -206,7 +206,7 @@ gitlab-ctl restart
 ```
 
 ### 3.5 GitLab恢复
-```text
+```txt
 迁移的整体思路是：
 1、将备份生成的备份文件发送到新服务器的相同目录下(/var/opt/gitlab/backups/)
     在老服务器上将备份文件发送至新服务器的相应目录下
@@ -220,6 +220,7 @@ gitlab-ctl restart
 [root@gitlab ~]# gitlab-ctl stop unicorn      #停止相关数据连接服务
 [root@gitlab ~]# gitlab-ctl stop sidekiq
 [root@gitlab ~]# gitlab-ctl stop nginx
+[root@gitlab ~]# gitlab-ctl stop Puma --
 [root@gitlab-new ~]# chmod 777 /var/opt/gitlab/backups/1530156812_2018_06_28_10.8.4_gitlab_backup.tar
 #修改权限，如果是从本服务器恢复可以不修改
 [root@gitlab ~]# gitlab-rake gitlab:backup:restore BACKUP=1530156812_2018_06_28_10.8.4	
@@ -263,7 +264,7 @@ sudo apt remove gitlab-ce
 
 ## 修改root密码
 依次执行如下脚本
-```text
+```txt
 cd /opt/gitlab/bin
 sudo gitlab-rails console -e  production
 user = User.where(id: 1).first
@@ -278,7 +279,8 @@ exit
 sudo gitlab-ctl tail
 ```
 
-```text
+```txt
 参考链接:
 https://blog.51cto.com/droptoking/5058134
+https://blog.csdn.net/darkdragonking/article/details/108099772
 ```

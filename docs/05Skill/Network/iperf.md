@@ -17,7 +17,7 @@ Iperf可以测试TCP和UDP带宽质量，具有多种参数和UDP特性，可以
 ### 2、Iperf的功能
 
 #### (1) TCP方面
-```text
+```txt
 ① 测量网络带宽
 ② 报告MSS/MTU值的大小和观测值
 ③ 支持TCP窗口值通过套接字缓冲
@@ -26,7 +26,7 @@ Iperf可以测试TCP和UDP带宽质量，具有多种参数和UDP特性，可以
 
 #### (2) UDP方面
 
-```text
+```txt
 ① 客户端可以创建指定带宽的UDP流
 ② 测量丢包
 ③ 测量延迟
@@ -36,7 +36,7 @@ Iperf可以测试TCP和UDP带宽质量，具有多种参数和UDP特性，可以
 
 #### (3) 其他方面
 
-```text
+```txt
 ① 在适当的地方，选项中可以使用K(kilo-) 和M(mega-) 。例如131072字节可以用128K代替。 
 ② 可以指定运行的总时间，甚至可以设置传输的数据总量。 
 ③ 在报告中，为数据选用最合适的单位。 
@@ -48,7 +48,7 @@ Iperf可以测试TCP和UDP带宽质量，具有多种参数和UDP特性，可以
 ``` 
 
 二、Iperf的安装
-```text
+```txt
 1、iperf的版本
 Iperf有两种版本，windows版和linux版本。
 （1）Unix/Linux版
@@ -70,7 +70,7 @@ gunzip -c iperf-.tar.gz | tar -xvf – cd iperf- ./configure make make install
 ```
 
 三、Iperf的使用
-```text
+```txt
 1、Iperf的工作模式
 Iperf可以运行在任何IP网络上，包括本地以太网、接入因特网、Wi-Fi网络等。在工作模式上，iperf运行于服务器、客户端模式下，其服务器端主要用于监听到达的测试请求，而客户端主要用于发起测试连接会话，因此要使用iperf至少需要两台服务器，一台运行在服务器模式下，另一台运行在客户端模式下。
 在完成iperf安装后，执行“iperf3 –h”即可显示iperf的详细用法。iperf的命令行选项共分为三类，分别是客户端与服务器端公用选项、服务器端专用选项和客户端专用选项。
@@ -122,7 +122,7 @@ Usage: iperf3 [-s|-c host] [options] iperf3 [-h|--help] [-v|--version]
 
 四、Iperf使用实例
 
-```text
+```txt
 1、环境准备：
 （1）Server端IP地址：192.168.0.120
 （2）Server端IP地址：192.168.0.121
