@@ -8,7 +8,7 @@
 192.168.0.124
 
 ## 场景一(单点传输 Tunnel-1):
-![场景一](./resources/pic4.awebp)
+![场景一](./resources/pic4.png)
 ### 主机A上执行如下操作:
 ```bash
 ip tunnel add Tunnel-1 mode gre remote 192.168.0.123 local 192.168.0.124
@@ -24,7 +24,7 @@ ip link set Tunnel-1 up
 ```
 
 ## 场景二(两个不同网段进行传输 Tunnel-2):
-![场景二](./resources/pic_1.awebp)
+![场景二](./resources/pic_1.png)
 ### 主机A上执行如下操作:
 ```bash
 ifconfig br1:1 192.168.160.1/24

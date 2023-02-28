@@ -4,17 +4,17 @@
 在学习ipsec过程中，一般都会涉及到ipsec的局限性：ipsec****协议是一种点对点协议，不支持组播，也不能保护组播、广播报文。因此ipsec协议无法用于音视频会议等场合，此时通常的解决办法是采用GRE Over IPSec. 给出的解释是：GRE协议可以封装组播、广播报文，但是无法对业务内容进行加密；而ipsec可以对报文进行加密，但是无法封装组播和广播报文。因此将两种协议结合，因而GRE over IPSec协议应运而生。 但是我找了很多资料(其实没有多少)，都没有找到为什么GRE协议支持封装组播和广播报文，而ipsec不行；他们作为点对点协议，为什么GRE可以而IPsec不行呢？ 因为没有找到答案，所以不能证实自己的想法正确与否，于是通过搭建GRE隧道环境，学习Linux内核中GRE隧道的操作配置原则，希望能从中得到些许启发。
 搭建GRE隧道环境实际上是很简单的，因为Linux内核已经支持了GRE隧道，因此直接在虚拟机(ubantu和CentOS)里进行简单的配置即可完成操作。
 
-![虚拟机图片](./resources/pic1.awebp)
+![虚拟机图片](./resources/pic1.png)
 
 ## 1. Linux内核支持的隧道类型
 目前Linux内核已经支持多种隧道类型，包括：IPIP隧道，GRE隧道，... 。其余这几个我也没见过。当然除了这几种，还有ipsec协议，l2tp协议，可以的是我目前都还没有用过，实在是暴殄天物，罪过罪过
-![图片1](./resources/pic2.awebp)
-![图片2](./resources/pic3.awebp)
+![图片1](./resources/pic2.png)
+![图片2](./resources/pic3.png)
 下面通过搭建两组拓扑环境，来学习GRE隧道的基本规则，然后在此基础上分析下GRE和IPSEC在组播和广播报文封装的表现出不同行为的可能原因(另写一遍文章喽)。
 
 ## 2. GRE隧道跨(公)网连接相同子网地址主机
 ## 2.1 拓扑环境：
-![拓扑环境](./resources/pic4.awebp)
+![拓扑环境](./resources/pic4.png)
 
 ## 2.1 ubantu配置：
 首先，我确定了下该虚拟机中是否存在gre相关的接口，结果当然是没有了。
@@ -182,14 +182,14 @@ lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
 从添加隧道结果来看，Tunnel-1接口虽然已经成功添加，但是处于down状态，此外也没有IP地址。 不，等等，那我们在添加隧道时指定的remote和local是什么呢？
 **它是经过GRE隧道封装后的报文IP地址，但是针对什么报文进行封装，目前我们尚未配置。**
 配置此接口IP的目的是：为了确定哪些报文需要进入GRE接口，然后进行隧道封装。为什么需要添加IP呢？ 因为我们是通过路由将报文引入到Tunnel-1接口的, 如果不填IP，那么我路由的下一条该写成什么呢， 是吧。
-![路由表](./resources/pic5.awebp)
+![路由表](./resources/pic5.png)
 
 ## 2.1.3 激活GRE隧道接口IP
 > ifconfig Tunnel-1 up
 或者
 > ip link set Tunnel-1 up
 至于配置接口IP和是否up接口，没有什么先后顺序，把他们当做不同的eth接口处理即可。
-![隧道信息](./resources/pic6.awebp)
+![隧道信息](./resources/pic6.png)
 
 ## 2.2 CentOS配置：
 CentOS虚拟机的配置和Ubantu的配置完全相同，安照此步骤操作即可。
@@ -229,27 +229,27 @@ lo        Link encap:Local Loopback
           RX bytes:240 (240.0 b)  TX bytes:240 (240.0 b)
 ```
 路由表信息如下：
-![路由表](./resources/pic7.awebp)
+![路由表](./resources/pic7.png)
 
 ## 2.3 ping包测试通讯链路：
 这里有一点需要注意：Linux系统可能开了iptables过滤功能，因此在ping时出现了类似" ICMP host 192.168.1.13 unreachable - admin prohibited, length 116"信息，详情如下：
-![路由表](./resources/pic8.awebp)
+![路由表](./resources/pic8.png)
 百度一下,在两台虚拟机上都执行如下操作即可：
 > iptables -F 或 iptables -X
 然后在ping包测试，数据可通：
-![Ping数据包](./resources/pic9.awebp)
-![Tcpdump数据包](./resources/pic10.awebp)
+![Ping数据包](./resources/pic9.png)
+![Tcpdump数据包](./resources/pic10.png)
 至此，基本GRE隧道环境搭建成功。
 
 ## 3. GRE隧道跨(公)网连接不同子网地址主机
 ## 3.1 拓扑环境
-![网络拓扑图](./resources/pic_1.awebp)
+![网络拓扑图](./resources/pic_1.png)
 目的： 通过GRE隧道将20.1.2.1/24、20.1.3.2/24两个子网连接起来进行通讯。
 ## 3.2 Ubantu配置
 ## 3.2.1 配置ens33子接口IP
 > ifconfig eth0:1 192.168.100.1/24
 查看接口配置如下：
-![IP别名](./resources/pic_2.awebp)
+![IP别名](./resources/pic_2.png)
 
 ## 3.2.2 添加另一个GRE隧道接口并up
 > ip tunnel add Tunnel-2 mode gre local 192.168.100.1 remote 192.168.100.2
@@ -257,23 +257,23 @@ lo        Link encap:Local Loopback
 
 ## 3.2.3 配置隧道接口IP
 > ifconfig Tunnel-2 20.1.2.1/24
-![隧道2](./resources/pic_3.awebp)
+![隧道2](./resources/pic_3.png)
 
 ## 3.2.4 添加对端子网路由表
 由于本端没有对端子网20.1.3.0/24的路由，因此需要添加路由，将该网段报文引入到Tunnel-2接口，这样便可以通过GRE隧道进行封装。
 > route add -net 20.1.3.0/24 gw 20.1.2.1
-![路由表](./resources/pic_4.awebp)
+![路由表](./resources/pic_4.png)
 
 ## 3.3 CentOS配置
 ## 3.3.1 配置ens33子接口IP
 > ifconfig ens33:1 192.168.100.2/24
-![IP别名](./resources/pic_5.awebp)
+![IP别名](./resources/pic_5.png)
 
 ## 3.3.2 添加另一个GRE隧道接口并up
 > ip tunnel add Tunnel-2 mode gre remote 192.168.100.1 local 192.168.100.2
 > ifconfig Tunnel-2 up
 结果如下：
-![GRE隧道](./resources/pic_6.awebp)
+![GRE隧道](./resources/pic_6.png)
 
 ## 3.3.3 配置隧道接口IP
 > ifconfig Tunnel-2 20.1.3.1/24
@@ -281,8 +281,8 @@ lo        Link encap:Local Loopback
 ## 3.3.4 添加对端子网路由表
 由于本端没有对端子网20.1.2.0/24的路由，因此需要添加路由，将该网段报文引入到Tunnel-2接口，这样便可以通过GRE隧道进行封装。
 > route add -net 20.1.2.0/24 gw 20.1.3.1
-![添加路由配置](./resources/pic_7.awebp)
+![添加路由配置](./resources/pic_7.png)
 
 ## 3.4 ping测试链路连通性
-![Ping网关地址](./resources/pic_8.awebp)
-![Tcpdump截图](./resources/pic_9.awebp)
+![Ping网关地址](./resources/pic_8.png)
+![Tcpdump截图](./resources/pic_9.png)
