@@ -50,5 +50,5 @@ deploy:      # This job runs in the deploy stage.
     - echo "Deploying application..."
     - pwd
     - cp ./docs/.vitepress/ /data/www.wushuang5112.wang/docs/.vitepress/ -r
-    - pm2 restart 1
+    # - pm2 restart 1
     - echo "Application successfully deployed."
