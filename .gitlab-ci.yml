@@ -48,5 +48,7 @@ deploy:      # This job runs in the deploy stage.
   environment: production
   script:
     - echo "Deploying application..."
+    - pwd
+    - cp ./docs/.vitepress/dist /data/www.wushuang5112.wang/docs/.vitepress/dist/
     - pm2 restart 1
     - echo "Application successfully deployed."
